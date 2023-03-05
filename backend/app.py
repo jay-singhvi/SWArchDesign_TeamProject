@@ -6,7 +6,7 @@ app = Flask(__name__)
 CONNECTION_STRING = "mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.net/?retryWrites=true&w=majority"
 myclient = MongoClient(CONNECTION_STRING)
 mydb = myclient["CPSC5200TeamProject"]
-mycol = mydb["Address"]
+col = mydb["Address"]
 
 # construct a Flask Response object
 def get_response(code, content):
@@ -41,9 +41,9 @@ def receive_json():
             else:
                 myquery[k] = v
     print(myquery)
-    mydoc = mycol.find(myquery)
+    doc = col.find(myquery)
     t_list = []
-    for item in mydoc:
+    for item in doc:
         t_list.append(json_format(item))
 
     print(t_list)
@@ -65,13 +65,44 @@ def search_countries():
             else:
                 myquery[k] = v
     print(myquery)
-    mydoc = mycol.find(myquery)
+    doc = col.find(myquery)
     t_list = []
-    for item in mydoc:
+    for item in doc:
         t_list.append(json_format(item))
 
     print(t_list)
     return get_response(200, t_list)
+
+@app.route('/api/searchCountriesByClient', methods=['GET'])
+def search_countries_by_client_name():
+    # Get the JSON message body from the request
+    data = request.get_json()
+    
+    #Generate a dictionary of queries based on JSON request
+    query={}
+    #Iterate over the JSON object
+    for (key, val) in data.items():
+        if (val != ''):
+            #If Name is provided then add it to the query dictionary
+            if (key == "Name"):
+                query[key] = val
+            #If Country is provided then add it to the query dictionary
+            elif (key == "Country"):
+                query[key] = val
+            #If partial Addresses is provided then add it to the query dictionary using regex
+            elif (key == "Address1" or key == "Address2"):
+                query[key] = {"$regex": ".*" + val + ".*"}
+            else:
+                query[key] = val
+
+    #Querying the database which returns documents based on the filters
+    doc = col.find(query)
+
+    #Iterates over the response from find method and appends to the list for response to client
+    listOfAddresses = []
+    for item in doc:
+        listOfAddresses.append(json_format(item))
+    return get_response(200, listOfAddresses)
 
 if __name__ == "__main__":
     app.run()
