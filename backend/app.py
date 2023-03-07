@@ -29,7 +29,7 @@ def hello():
     #return client['user_shopping_list']
 
 
-@app.route('/api/searchCountry', methods=['POST'])
+@app.route('/api/searchCountry', methods=['GET'])
 def receive_json():
     data = request.get_json()
     myquery={}
@@ -50,7 +50,7 @@ def receive_json():
     return get_response(200, t_list)
 
 
-@app.route('/api/searchCountries', methods=['POST'])
+@app.route('/api/searchCountries', methods=['GET'])
 def search_countries():
     data = request.get_json()
     #print(data)
