@@ -20,7 +20,36 @@ def json_format(address):
 	address['_id'] = str(address['_id'])
 	return address
 
+def do_search_country(data):
+    myquery = {}
+    for (k, v) in data.items():
+        if (v != ''):
+            if (k == "Address1" or k == "Address2"):
+                myquery[k] = {"$regex": ".*" + v + ".*"}
+            else:
+                myquery[k] = v
+    doc = col.find(myquery)
+    t_list = []
+    for item in doc:
+        t_list.append(json_format(item))
+    return t_list
 
+def do_search_countries(data):
+    myquery = {}
+    for (k, v) in data.items():
+        if (v != ''):
+            if (k == "Country"):
+                myquery[k] = {"$in": v}
+            elif (k == "Address1" or k == "Address2"):
+                myquery[k] = {"$regex": ".*" + v + ".*"}
+            else:
+                myquery[k] = v
+    doc = col.find(myquery)
+    t_list = []
+
+    for item in doc:
+        t_list.append(json_format(item))
+    return t_list
 @app.route("/")
 def index():
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -32,48 +61,17 @@ def index():
 
 
 @app.route('/api/searchCountry', methods=['POST'])
-def receive_json():
+def searchCountry():
     data = request.get_json()
-    myquery={}
-    #print(data)
-    for (k, v) in data.items():
-        if (v != ''):
-            if (k == "Address1" or k == "Address2"):
-                myquery[k] = {"$regex": ".*" + v + ".*"}
-            else:
-                myquery[k] = v
-    print(myquery)
-    doc = col.find(myquery)
-    t_list = []
-    for item in doc:
-        t_list.append(json_format(item))
-
-    print(t_list)
-    return get_response(200, t_list)
+    result= do_search_country(data)
+    return get_response(200,result)
 
 
 @app.route('/api/searchCountries', methods=['POST'])
 def search_countries():
     data = request.get_json()
-    #print(data)
-    myquery={}
-    #print(data)
-    for (k, v) in data.items():
-        if (v != ''):
-            if (k == "Country"):
-                myquery[k] ={"$in":v}
-            elif (k == "Address1" or k == "Address2"):
-                myquery[k] = {"$regex": ".*" + v + ".*"}
-            else:
-                myquery[k] = v
-    print(myquery)
-    doc = col.find(myquery)
-    t_list = []
-    for item in doc:
-        t_list.append(json_format(item))
-
-    print(t_list)
-    return get_response(200, t_list)
+    result = do_search_countries(data)
+    return get_response(200, result)
 
 @app.route('/api/searchCountriesByClient', methods=['POST'])
 def search_countries_by_client_name():
