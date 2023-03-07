@@ -1,7 +1,9 @@
-from flask import Flask, request, Response,jsonify
+from flask import Flask, request, Response,jsonify,render_template
 from pymongo import MongoClient
+from flask_cors import CORS
 import json
 app = Flask(__name__)
+CORS(app)
 
 CONNECTION_STRING = "mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.net/?retryWrites=true&w=majority"
 myclient = MongoClient(CONNECTION_STRING)
@@ -20,16 +22,16 @@ def json_format(address):
 
 
 @app.route("/")
-def hello():
+def index():
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
 
-    return "Hello World!"
+    return render_template('index.html')
 
     # Create the database for our example (we will use the same database throughout the tutorial
     #return client['user_shopping_list']
 
 
-@app.route('/api/searchCountry', methods=['GET'])
+@app.route('/api/searchCountry', methods=['POST'])
 def receive_json():
     data = request.get_json()
     myquery={}
@@ -50,7 +52,7 @@ def receive_json():
     return get_response(200, t_list)
 
 
-@app.route('/api/searchCountries', methods=['GET'])
+@app.route('/api/searchCountries', methods=['POST'])
 def search_countries():
     data = request.get_json()
     #print(data)
@@ -73,11 +75,10 @@ def search_countries():
     print(t_list)
     return get_response(200, t_list)
 
-@app.route('/api/searchCountriesByClient', methods=['GET'])
+@app.route('/api/searchCountriesByClient', methods=['POST'])
 def search_countries_by_client_name():
     # Get the JSON message body from the request
     data = request.get_json()
-    
     #Generate a dictionary of queries based on JSON request
     query={}
     #Iterate over the JSON object
