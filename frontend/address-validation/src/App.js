@@ -3,6 +3,15 @@ import React, { useState, setState } from "react";
 import USA from "./assets/usa.png";
 import CND from "./assets/canada.png";
 import IND from "./assets/india.png";
+import { styled } from '@mui/material/styles';
+import Table from "@mui/material/Table";
+import TableFooter from '@mui/material/TableFooter';
+import TableBody from "@mui/material/TableBody";
+import TableCell,  { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 
 // React component for creating and sending POST request
 function App() {
@@ -10,6 +19,42 @@ function App() {
   const [countryList, setCountryList] = useState("");
   const [formData, setFormData] = useState(null);
   const [responseData, setResponseData] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - responseData.length) : 0;
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+  
 
   // Set of Counries under consideration
   const countries = [
@@ -60,7 +105,7 @@ function App() {
       if (formData !== null && formData.Name !== null) {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/searchCountriesByClient",
+            "http://127.0.0.1:5000/api/searchCountriesByClient",
             {
               method: "POST",
               headers: {
@@ -82,7 +127,7 @@ function App() {
       else {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/searchCountry",
+            "http://127.0.0.1:5000/api/searchCountry",
             {
               method: "POST",
               headers: {
@@ -106,7 +151,7 @@ function App() {
 
       try {
         const response = await fetch(
-          "http://localhost:5000//api/searchCountries",
+          "http://127.0.0.1:5000//api/searchCountries",
           {
             method: "POST",
             headers: {
@@ -127,7 +172,7 @@ function App() {
     else if (formData !== null && formData.Name !== null) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/searchCountriesByClient",
+          "http://127.0.0.1:5000/api/searchCountriesByClient",
           {
             method: "POST",
             headers: {
@@ -141,6 +186,7 @@ function App() {
         setResponseData(data);
       } catch (error) {
         console.error(error);
+        console.log(error);
         setResponseData({ error: "An error occurred" });
       }
     }
@@ -154,7 +200,7 @@ function App() {
         <h1 className=" uppercase tracking-widest font-bold text-xl">
           Address Validator
         </h1>
-        <div className="mt-3">
+        <div className=" mt-3">
           <select
             className=" p-5 outline-none focus:outline-none"
             multiple
@@ -171,6 +217,14 @@ function App() {
               </option>
             ))}
           </select>
+          {/* <Select
+            className=" p-5 outline-none focus:outline-none"
+            isMulti
+            value={countryList}
+            options={countryOptions}
+            onChange={handleSelectedCountry}
+          />
+           */}
         </div>
 
         {renderForm()}
@@ -196,10 +250,75 @@ function App() {
           ></span>
         </a>
 
+        {/* output */}
         {responseData && (
           <div>
-            <h2>Post Result:</h2>
-            <pre>{JSON.stringify(responseData, null, 2)}</pre>
+            <div className=" mt-40">
+              <h1 className=" text-center uppercase font-bold tracking-widest">Results</h1>
+            </div>
+            <TableContainer sx={{ maxHeight: 440 }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Name</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Address 01</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Address 02</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>City</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>State</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Zip Code</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Country</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {(rowsPerPage > 0
+                    ? responseData.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                    : responseData
+                  ).map((address) => (
+                    <StyledTableRow key={address._id}>
+                      <StyledTableCell>{address.Name}</StyledTableCell>
+                      <StyledTableCell>{address.Address1}</StyledTableCell>
+                      <StyledTableCell>{address.Address2}</StyledTableCell>
+                      <StyledTableCell>{address.City}</StyledTableCell>
+                      <StyledTableCell>{address.State}</StyledTableCell>
+                      <StyledTableCell>{address.ZipCode}</StyledTableCell>
+                      <StyledTableCell>{address.Country}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      rowsPerPageOptions={[
+                        5,
+                        10,
+                        25,
+                        { label: "All", value: -1 },
+                      ]}
+                      colSpan={3}
+                      count={responseData.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      SelectProps={{
+                        inputProps: {
+                          "aria-label": "rows per page",
+                        },
+                        native: true,
+                      }}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                  </TableRow>
+                </TableFooter>
+              </Table>
+            </TableContainer>
           </div>
         )}
       </div>
