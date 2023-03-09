@@ -12,6 +12,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip'
 
 // React component for creating and sending POST request
 function App() {
@@ -52,6 +57,17 @@ function App() {
       border: 0,
     },
   }));
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
 
 
   // Set of Counries under consideration
@@ -202,7 +218,7 @@ function App() {
 
         {/* select countries */}
         <div className=" mt-3">
-          <select
+          {/* <select
             className=" p-5 outline-none focus:outline-none"
             multiple
             value={countryList}
@@ -217,7 +233,33 @@ function App() {
                 {country.name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={countryList}
+            onChange={handleSelectedCountry}
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {countries.map((country) => (
+              <MenuItem
+                key={country.name}
+                value={country.name}
+              // style={getStyles(name, personName, theme)}
+              >
+                {country.name}
+              </MenuItem>
+            ))}
+          </Select>
         </div>
 
         {renderForm()}

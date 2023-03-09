@@ -7,11 +7,16 @@ import { styled } from '@mui/material/styles';
 import Table from "@mui/material/Table";
 import TableFooter from '@mui/material/TableFooter';
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell,  { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip'
 
 // React component for creating and sending POST request
 function App() {
@@ -22,6 +27,7 @@ function App() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - responseData.length) : 0;
 
@@ -43,7 +49,7 @@ function App() {
       fontSize: 14,
     },
   }));
-
+  
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
@@ -52,7 +58,7 @@ function App() {
       border: 0,
     },
   }));
-
+  
 
   // Set of Counries under consideration
   const countries = [
@@ -196,13 +202,13 @@ function App() {
     <div className=" items-center justify-between min-h-screen  ">
       <div className="  py-10 flex flex-col items-center border-2 border-black">
         <h1 className=" uppercase tracking-widest font-bold text-xl underline">
-          Authentic Address
+        Authentic Address
         </h1>
         <p className=" text-gray-400 text-sm">Welcome to Authentic Address, an address validator</p>
 
         {/* select countries */}
         <div className=" mt-3">
-          <select
+          {/* <select
             className=" p-5 outline-none focus:outline-none"
             multiple
             value={countryList}
@@ -217,7 +223,33 @@ function App() {
                 {country.name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Select
+          labelId="demo-multiple-chip-label"
+          id="demo-multiple-chip"
+          multiple
+          value={countryList}
+          onChange={handleSelectedCountry}
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+        >
+          {countries.map((country) => (
+            <MenuItem
+            key={country.name}
+            value={country.name}
+              // style={getStyles(name, personName, theme)}
+            >
+            {country.name}
+            </MenuItem>
+          ))}
+        </Select>
         </div>
 
         {renderForm()}
@@ -250,31 +282,31 @@ function App() {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>Name</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Address 01</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>Address 02</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>City</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>State</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Zip Code</StyledTableCell>
-                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Country</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold", textAlign:"left"}}>Name</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"center"}}>Address 01</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"left"}}>Address 02</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"left"}}>City</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"left"}}>State</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"center"}}>Zip Code</StyledTableCell>
+                    <StyledTableCell sx={{fontWeight:"fontWeightBold",textAlign:"center"}}>Country</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {(rowsPerPage > 0
                     ? responseData.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
                     : responseData
                   ).map((address) => (
                     <StyledTableRow key={address._id}>
-                      <StyledTableCell sx={{ textAlign: "left" }}>{address.Name}</StyledTableCell>
-                      <StyledTableCell sx={{ textAlign: "center" }}>{address.Address1}</StyledTableCell>
-                      <StyledTableCell sx={{ textAlign: "left" }}>{address.Address2}</StyledTableCell>
+                      <StyledTableCell sx={{textAlign:"left"}}>{address.Name}</StyledTableCell>
+                      <StyledTableCell  sx={{textAlign:"center"}}>{address.Address1}</StyledTableCell>
+                      <StyledTableCell sx={{textAlign:"left"}}>{address.Address2}</StyledTableCell>
                       <StyledTableCell>{address.City}</StyledTableCell>
                       <StyledTableCell>{address.State}</StyledTableCell>
                       <StyledTableCell>{address.ZipCode}</StyledTableCell>
-                      <StyledTableCell sx={{ textAlign: "center" }}>{address.Country}</StyledTableCell>
+                      <StyledTableCell  sx={{textAlign:"center"}}>{address.Country}</StyledTableCell>
                     </StyledTableRow>
                   ))}
                   {emptyRows > 0 && (
