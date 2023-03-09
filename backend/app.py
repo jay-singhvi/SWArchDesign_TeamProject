@@ -1,6 +1,9 @@
 from flask import Flask, request, Response,jsonify,render_template
 from pymongo import MongoClient
 from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
+
+
 import json
 app = Flask(__name__)
 CORS(app)
@@ -9,6 +12,21 @@ CONNECTION_STRING = "mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.n
 myclient = MongoClient(CONNECTION_STRING)
 mydb = myclient["CPSC5200TeamProject"]
 col = mydb["Address"]
+
+
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Seans-Python-Flask-REST-Boilerplate"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+### end swagger specific ###
+
 
 # construct a Flask Response object
 def get_response(code, content):
@@ -50,10 +68,17 @@ def do_search_countries(data):
     for item in doc:
         t_list.append(json_format(item))
     return t_list
+
+@app.route("/spec")
+def spec():
+    swag = swagger(app)
+    swag['info']['version'] = "1.0"
+    swag['info']['title'] = "My API"
+    return jsonify(swag)
+    return jsonify(swagger(app))
 @app.route("/")
 def index():
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
-
     return render_template('index.html')
 
     # Create the database for our example (we will use the same database throughout the tutorial
@@ -95,6 +120,7 @@ def search_countries_by_client_name():
                 query[key] = val
 
     #Querying the database which returns documents based on the filters
+    print(query)
     doc = col.find(query)
 
     #Iterates over the response from find method and appends to the list for response to client
