@@ -12,6 +12,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import usaStates from "./usaStates.json"
+import canadaStates from "./canadaStates.json"
+import indiaStates from "./indianStates.json"
+
+
 
 // React component for creating and sending POST request
 function App() {
@@ -354,6 +359,7 @@ function USAForm({ setFormData }) {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 type="text"
                 placeholder="Full Name"
+               name="Name"
               />
             </div>
 
@@ -403,6 +409,7 @@ function USAForm({ setFormData }) {
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
                   State
                 </label>
+                {/*
                 <input
                   onChange={updateForm}
                   className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -410,6 +417,16 @@ function USAForm({ setFormData }) {
                   name="State"
                   placeholder="State"
                 />
+                */}
+                <select  name='State' onChange={updateForm} className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                      <option value="">Select a state</option>
+                      {usaStates.map((state) => (
+                        <option key={state.name} value={state.name}>
+                          {state.name}
+                        </option>
+                      ))}
+                      </select>
+
               </div>
               <div className=" w-full px-3 mb-3">
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
@@ -518,6 +535,7 @@ function CanadaForm({ setFormData }) {
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
                   Province
                 </label>
+                {/*
                 <input
                   onChange={updateForm}
                   className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -525,6 +543,15 @@ function CanadaForm({ setFormData }) {
                   name="State"
                   placeholder="Province"
                 />
+                */}
+                <select  name='State' onChange={updateForm} className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                      <option value="">Select a state</option>
+                      {canadaStates.map((state) => (
+                        <option key={state.name} value={state.name}>
+                          {state.name}
+                        </option>
+                      ))}
+                      </select>
               </div>
               <div className=" w-full px-3 mb-3">
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
@@ -604,7 +631,7 @@ function IndiaForm({ setFormData }) {
               <div className=" w-full px-3 mb-3">
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
                   Address 02
-                </label>
+                </label>       
                 <input
                   onChange={updateForm}
                   className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -633,6 +660,7 @@ function IndiaForm({ setFormData }) {
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
                   State
                 </label>
+                {/*
                 <input
                   onChange={updateForm}
                   className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -640,6 +668,15 @@ function IndiaForm({ setFormData }) {
                   name="State"
                   placeholder="State"
                 />
+                */}
+                  <select  name='State' onChange={updateForm} className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Select a state</option>
+                    {indiaStates.map((state) => (
+                      <option key={state.name} value={state.name}>
+                        {state.name}
+                      </option>
+                    ))}
+                    </select>
               </div>
               <div className=" w-full px-3 mb-3">
                 <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
