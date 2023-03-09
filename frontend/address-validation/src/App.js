@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import Table from "@mui/material/Table";
 import TableFooter from '@mui/material/TableFooter';
 import TableBody from "@mui/material/TableBody";
-import TableCell,  { tableCellClasses } from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
@@ -22,7 +22,6 @@ function App() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - responseData.length) : 0;
 
@@ -44,17 +43,16 @@ function App() {
       fontSize: 14,
     },
   }));
-  
+
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   }));
-  
+
 
   // Set of Counries under consideration
   const countries = [
@@ -197,9 +195,12 @@ function App() {
   return (
     <div className=" items-center justify-between min-h-screen  ">
       <div className="  py-10 flex flex-col items-center border-2 border-black">
-        <h1 className=" uppercase tracking-widest font-bold text-xl">
-          Address Validator
+        <h1 className=" uppercase tracking-widest font-bold text-xl underline">
+          Authentic Address
         </h1>
+        <p className=" text-gray-400 text-sm">Welcome to Authentic Address, an address validator</p>
+
+        {/* select countries */}
         <div className=" mt-3">
           <select
             className=" p-5 outline-none focus:outline-none"
@@ -217,21 +218,10 @@ function App() {
               </option>
             ))}
           </select>
-          {/* <Select
-            className=" p-5 outline-none focus:outline-none"
-            isMulti
-            value={countryList}
-            options={countryOptions}
-            onChange={handleSelectedCountry}
-          />
-           */}
         </div>
 
         {renderForm()}
 
-        {/* <button type="submit" onClick={findAddress}>
-          Submit
-        </button> */}
         <a class="relative inline-block text-lg group mt-10">
           <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
             <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -252,39 +242,39 @@ function App() {
 
         {/* output */}
         {responseData && (
-          <div>
-            <div className=" mt-40">
+          <div className="mt-40 mb-14">
+            <div className="">
               <h1 className=" text-center uppercase font-bold tracking-widest">Results</h1>
             </div>
-            <TableContainer sx={{ maxHeight: 440 }}>
+            <TableContainer sx={{ minHeight: 500 }}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Name</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Address 01</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Address 02</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>City</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>State</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Zip Code</StyledTableCell>
-                    <StyledTableCell sx={{fontWeight:"fontWeightBold",}}>Country</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>Name</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Address 01</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>Address 02</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>City</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>State</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Zip Code</StyledTableCell>
+                    <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}>Country</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {(rowsPerPage > 0
                     ? responseData.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                     : responseData
                   ).map((address) => (
                     <StyledTableRow key={address._id}>
-                      <StyledTableCell>{address.Name}</StyledTableCell>
-                      <StyledTableCell>{address.Address1}</StyledTableCell>
-                      <StyledTableCell>{address.Address2}</StyledTableCell>
+                      <StyledTableCell sx={{ textAlign: "left" }}>{address.Name}</StyledTableCell>
+                      <StyledTableCell sx={{ textAlign: "center" }}>{address.Address1}</StyledTableCell>
+                      <StyledTableCell sx={{ textAlign: "left" }}>{address.Address2}</StyledTableCell>
                       <StyledTableCell>{address.City}</StyledTableCell>
                       <StyledTableCell>{address.State}</StyledTableCell>
                       <StyledTableCell>{address.ZipCode}</StyledTableCell>
-                      <StyledTableCell>{address.Country}</StyledTableCell>
+                      <StyledTableCell sx={{ textAlign: "center" }}>{address.Country}</StyledTableCell>
                     </StyledTableRow>
                   ))}
                   {emptyRows > 0 && (
@@ -434,21 +424,6 @@ function USAForm({ setFormData }) {
                 />
               </div>
             </div>
-
-            {/* Name: <input type="text" name="Name" onChange={updateForm} />
-            <br /> */}
-            {/* Address1:{" "}
-            <input type="text" name="Address1" onChange={updateForm} />
-            <br /> */}
-            {/* Address2:{" "}
-            <input type="text" name="Address2" onChange={updateForm} />
-            <br /> */}
-            {/* City: <input type="text" name="City" onChange={updateForm} />
-            <br />
-            State: <input type="text" name="State" onChange={updateForm} />
-            <br />
-            ZipCode: <input type="text" name="Zipcode" onChange={updateForm} />
-            <br /> */}
           </div>
         </form>
       </div>
@@ -565,18 +540,6 @@ function CanadaForm({ setFormData }) {
               </div>
             </div>
           </div>
-
-          {/* Name: <input type="text" name="Name" onChange={updateForm} />
-          <br />
-          Address1: <input type="text" name="Address1" onChange={updateForm} />
-          <br />
-          Address2: <input type="text" name="Address2" onChange={updateForm} />
-          <br />
-          City: <input type="text" name="City" onChange={updateForm} />
-          <br />
-          Province: <input type="text" name="State" onChange={updateForm} />
-          <br />
-          Postalcode: <input type="text" name="ZipCode" onChange={updateForm} /> */}
         </form>
       </div>
     </div>
@@ -691,21 +654,6 @@ function IndiaForm({ setFormData }) {
                 />
               </div>
             </div>
-
-            {/* Name: <input type="text" name="Name" onChange={updateForm} />
-            <br />
-            Street Address:{" "}
-            <input type="text" name="Address1" onChange={updateForm} />
-            <br />
-            Address2:{" "}
-            <input type="text" name="Address2" onChange={updateForm} />
-            <br />
-            City: <input type="text" name="City" onChange={updateForm} />
-            <br />
-            State: <input type="text" name="State" onChange={updateForm} />
-            <br />
-            Pincode: <input type="text" name="ZipCode" onChange={updateForm} />
-            <br /> */}
           </div>
         </form>
       </div>
@@ -817,18 +765,6 @@ function DefaultForm({ setFormData }) {
           </div>
         </div>
       </div>
-      {/* Name: <input type="text" name="Name" onChange={updateForm} />
-      <br />
-      Address1: <input type="text" name="Address1" onChange={updateForm} />
-      <br />
-      Address2: <input type="text" name="Address2" onChange={updateForm} />
-      <br />
-      City: <input type="text" name="City" onChange={updateForm} />
-      <br />
-      State: <input type="text" name="State" onChange={updateForm} />
-      <br />
-      ZipCode: <input type="text" name="Zipcode" onChange={updateForm} />
-      <br /> */}
     </div>
   );
 }
