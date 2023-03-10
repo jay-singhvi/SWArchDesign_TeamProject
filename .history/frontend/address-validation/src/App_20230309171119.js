@@ -340,7 +340,20 @@ function App() {
                         {address.Address2}
                       </StyledTableCell>
                       <StyledTableCell>{address.City}</StyledTableCell>
-                      <StyledTableCell>{address.State}</StyledTableCell>
+                      {countryList.includes("Japan") ? (
+                      <StyledTableCell
+                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
+                      >
+                        
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell
+                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
+                      >
+                        {address.State}
+                      </StyledTableCell>
+                    )}
+                      {/* <StyledTableCell>{address.State}</StyledTableCell> */}
                       <StyledTableCell>{address.ZipCode}</StyledTableCell>
                       <StyledTableCell sx={{ textAlign: "center" }}>
                         {address.Country}

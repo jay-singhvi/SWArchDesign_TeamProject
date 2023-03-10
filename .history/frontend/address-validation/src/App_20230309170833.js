@@ -265,19 +265,11 @@ function App() {
                     >
                       Name
                     </StyledTableCell>
-                    {countryList.includes("India") ? (
-                      <StyledTableCell
-                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
-                      >
-                        Street Address
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell
-                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
-                      >
-                        Address 01
-                      </StyledTableCell>
-                    )}
+                    <StyledTableCell
+                      sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}
+                    >
+                      Address 01
+                    </StyledTableCell>
                     <StyledTableCell
                       sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                     >
@@ -333,7 +325,7 @@ function App() {
                       <StyledTableCell sx={{ textAlign: "left" }}>
                         {address.Name}
                       </StyledTableCell>
-                      <StyledTableCell sx={{ textAlign: "left" }}>
+                      <StyledTableCell sx={{ textAlign: "center" }}>
                         {address.Address1}
                       </StyledTableCell>
                       <StyledTableCell sx={{ textAlign: "left" }}>

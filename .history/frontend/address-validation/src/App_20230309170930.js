@@ -333,7 +333,7 @@ function App() {
                       <StyledTableCell sx={{ textAlign: "left" }}>
                         {address.Name}
                       </StyledTableCell>
-                      <StyledTableCell sx={{ textAlign: "left" }}>
+                      <StyledTableCell sx={{ textAlign: "center" }}>
                         {address.Address1}
                       </StyledTableCell>
                       <StyledTableCell sx={{ textAlign: "left" }}>
