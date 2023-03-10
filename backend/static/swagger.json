@@ -24,7 +24,7 @@
     "/searchCountry": {
       "post": {
         "tags": [
-          "Address Request"
+          "Address searching"
         ],
         "summary": "Search addresses from a specific country",
         "requestBody": {
@@ -58,7 +58,7 @@
     "/searchCountries": {
       "post": {
         "tags": [
-          "Address Request"
+          "Address searching"
         ],
         "summary": "Search addresses from for across countries",
         "requestBody": {
@@ -92,7 +92,7 @@
      "/searchCountriesByClient": {
       "post": {
         "tags": [
-          "Address Request"
+          "Address searching"
         ],
         "summary": "Search addresses from for across countries by User name",
         "requestBody": {
