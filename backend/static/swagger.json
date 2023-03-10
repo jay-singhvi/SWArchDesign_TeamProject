@@ -1,0 +1,253 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "sean",
+    "version": "1.0.0",
+    "title": " CPSC5200-WQ22-Team_Project",
+    "license": {
+      "name": "Jen, Karan, Jay,Vidhi",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Address searching",
+      "description": "Example API for requesting and return Address requests"
+    }
+  ],
+  "paths": {
+    "/searchCountry": {
+      "post": {
+        "tags": [
+          "Address Request"
+        ],
+        "summary": "Search addresses from a specific country",
+        "requestBody": {
+          "description": "Address Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/countryRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Result"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+
+    },
+    "/searchCountries": {
+      "post": {
+        "tags": [
+          "Address Request"
+        ],
+        "summary": "Search addresses from for across countries",
+        "requestBody": {
+          "description": "Address Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/countriesRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Result"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+
+    },
+     "/searchCountriesByClient": {
+      "post": {
+        "tags": [
+          "Address Request"
+        ],
+        "summary": "Search addresses from for across countries by User name",
+        "requestBody": {
+          "description": "Address Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/countryByUserRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Result"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+
+    }
+
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "properties": {
+          "result": {
+            "type": "oject"
+          }
+        }
+      },
+      "countryRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "Country": {
+            "type": "string",
+            "format": "string",
+            "example": "United States of America"
+          },
+          "State": {
+            "type": "string",
+            "format": "String",
+            "example": "Washington"
+          },
+          "Address1": {
+            "type": "string",
+            "format": "String",
+            "example": "1107"
+          },
+           "Address2": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          },
+           "City": {
+            "type": "string",
+            "format": "String",
+            "example": "Seattle"
+          },
+            "ZipCode": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          }
+
+        }
+      },
+      "countryByUserRequestPostBody": {
+        "type": "object",
+        "properties": {
+           "Name": {
+            "type": "string",
+            "format": "string",
+            "example": "Kathryn Atwell"
+          },
+          "Country": {
+            "type": "string",
+            "format": "string",
+            "example": "United States of America"
+          },
+          "State": {
+            "type": "string",
+            "format": "String",
+            "example": "Washington"
+          },
+          "Address1": {
+            "type": "string",
+            "format": "String",
+            "example": "1107"
+          },
+           "Address2": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          },
+           "City": {
+            "type": "string",
+            "format": "String",
+            "example": "Seattle"
+          },
+            "ZipCode": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          }
+
+        }
+      },
+       "countriesRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "Country": {
+            "type": "array",
+             "example": ["Canada", "United States of America"]
+
+          },
+          "State": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          },
+          "Address1": {
+            "type": "string",
+            "format": "String",
+            "example": "11"
+          },
+           "Address2": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          },
+           "City": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          },
+            "ZipCode": {
+            "type": "string",
+            "format": "String",
+            "example": ""
+          }
+
+        }
+      }
+
+    }
+  }
+}
