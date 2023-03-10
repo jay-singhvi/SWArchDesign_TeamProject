@@ -74,7 +74,7 @@ function App() {
         return <IndiaForm setFormData={setFormData} />;
       else if (countryList.includes("Japan"))
         return <JapanForm setFormData={setFormData} />;
-      else if (countryList.includes("Mexico"))
+        else if (countryList.includes("Mexico"))
         return <MexicoForm setFormData={setFormData} />;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
@@ -281,18 +281,10 @@ function App() {
                       City
                     </StyledTableCell>
                     {countryList.includes("Canada") ? (
-                      <StyledTableCell
-                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
-                      >
-                        Province
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell
-                        sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
-                      >
-                        State
-                      </StyledTableCell>
-                    )}
+                        <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>Province</StyledTableCell>
+                          ) : (
+                            <StyledTableCell sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}>State</StyledTableCell>
+                          )}
                     <StyledTableCell
                       sx={{ fontWeight: "fontWeightBold", textAlign: "center" }}
                     >
@@ -375,7 +367,7 @@ function App() {
   <JapanForm />
   <CanadaForm />
   <IndiaForm />
-  <MexicoForm />
+  <MexicoForm/>
   <DefaultForm />
 </>;
 
