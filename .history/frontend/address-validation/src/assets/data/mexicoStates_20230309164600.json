@@ -1,0 +1,146 @@
+[
+    {
+    "key": "AC",
+    "name": "Acapulco"
+    },
+    {
+    "key": "AG",
+    "name": "Aguascalientes"
+    },
+    {
+    "key": "CP",
+    "name": "Chilpancingo"
+    },
+    {
+    "key": "CDM",
+    "name": "CIUDAD DE MEXICO"
+    },
+    {
+    "key": "CL",
+    "name": "Culiacán"
+    },
+    {
+    "key": "GD",
+    "name": "Guadalajara"
+    },
+    {
+    "key": "GL",
+    "name": "Guadalupe"
+    },
+    {
+    "key": "IR",
+    "name": "Irapuato"
+    },
+    {
+    "key": "IZ",
+    "name": "Iztapalapa"
+    },
+    {
+    "key": "MZ",
+    "name": "Mazatlán"
+    },
+    {
+    "key": "MT",
+    "name": "Monterrey"
+    },
+    {
+    "key": "GJ",
+    "name": "Gujarat"
+    },
+    {
+    "key": "HR",
+    "name": "Haryana"
+    },
+    {
+    "key": "HP",
+    "name": "Himachal Pradesh"
+    },
+    {
+    "key": "JK",
+    "name": "Jammu and Kashmir"
+    },
+    {
+    "key": "JH",
+    "name": "Jharkhand"
+    },
+    {
+    "key": "KA",
+    "name": "Karnataka"
+    },
+    {
+    "key": "KL",
+    "name": "Kerala"
+    },
+    {
+    "key": "LD",
+    "name": "Lakshadweep"
+    },
+    {
+    "key": "MP",
+    "name": "Madhya Pradesh"
+    },
+    {
+    "key": "MH",
+    "name": "Maharashtra"
+    },
+    {
+    "key": "MN",
+    "name": "Manipur"
+    },
+    {
+    "key": "ML",
+    "name": "Meghalaya"
+    },
+    {
+    "key": "MZ",
+    "name": "Mizoram"
+    },
+    {
+    "key": "NL",
+    "name": "Nagaland"
+    },
+    {
+    "key": "OR",
+    "name": "Odisha"
+    },
+    {
+    "key": "PY",
+    "name": "Puducherry"
+    },
+    {
+    "key": "PB",
+    "name": "Punjab"
+    },
+    {
+    "key": "RJ",
+    "name": "Rajasthan"
+    },
+    {
+    "key": "SK",
+    "name": "Sikkim"
+    },
+    {
+    "key": "TN",
+    "name": "Tamil Nadu"
+    },
+    {
+    "key": "TS",
+    "name": "Telangana"
+    },
+    {
+    "key": "TR",
+    "name": "Tripura"
+    },
+    {
+    "key": "UK",
+    "name": "Uttar Pradesh"
+    },
+    {
+    "key": "UP",
+    "name": "Uttarakhand"
+    },
+    {
+    "key": "WB",
+    "name": "West Bengal"
+    }
+    ]

@@ -1,3 +1,4 @@
+import "./App.css";
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -9,11 +10,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import USAForm from "./components/UsaForm";
-import JapanForm from "./components/JapanForm";
 import CanadaForm from "./components/CanadaForm";
 import IndiaForm from "./components/IndiaForm";
-import DefaultForm from "./components/DefaultForm";
-import MexicoForm from "./components/MexicoForm";
 
 function App() {
   // variables to handle the Request and Response
@@ -58,9 +56,7 @@ function App() {
   const countries = [
     { name: "Default" },
     { name: "United States of America" },
-    { name: "Japan" },
     { name: "India" },
-    { name: "Mexico" },
     { name: "Canada" },
   ];
 
@@ -72,10 +68,6 @@ function App() {
         return <USAForm setFormData={setFormData} />;
       else if (countryList.includes("India"))
         return <IndiaForm setFormData={setFormData} />;
-      else if (countryList.includes("Japan"))
-        return <JapanForm setFormData={setFormData} />;
-        else if (countryList.includes("Mexico"))
-        return <MexicoForm setFormData={setFormData} />;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
       else return <DefaultForm setFormData={setFormData} />;
@@ -209,7 +201,7 @@ function App() {
         </p>
 
         {/* select countries */}
-        <div className=" mt-5">
+        <div className=" mt-3">
           <select
             className=" p-5 outline-none focus:outline-none"
             multiple
@@ -218,7 +210,7 @@ function App() {
           >
             {countries.map((country) => (
               <option
-                className=" cursor-pointer uppercase tracking-widest p-2 hover:bg-gray-300 m-3"
+                className=" cursor-pointer uppercase tracking-widest p-2 hover:bg-gray-300"
                 key={country.name}
                 value={country.name}
               >
@@ -300,9 +292,9 @@ function App() {
                 <TableBody>
                   {(rowsPerPage > 0
                     ? responseData.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                     : responseData
                   ).map((address) => (
                     <StyledTableRow key={address._id}>
@@ -363,12 +355,120 @@ function App() {
 }
 
 <>
-  <USAForm />
-  <JapanForm />
-  <CanadaForm />
-  <IndiaForm />
-  <MexicoForm/>
-  <DefaultForm />
-</>;
+<USAForm />
+<CanadaForm />
+<IndiaForm/>
+</>
+
+
+
+// React component to render default form
+function DefaultForm({ setFormData }) {
+  const [formValues, setFormValues] = useState({});
+  function updateForm(event) {
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+    setFormData({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  return (
+    <div className=" bg-gray-100 items-center mt-6 px-10 py-5">
+      <h2 className="uppercase tracking-wider font-medium text-center">
+        Default Form
+      </h2>
+
+      <div className=" mt-2 space-y-3">
+        <div className="w-full px-3 mb-3">
+          <label
+            className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Full Name
+          </label>
+          <input
+            onChange={updateForm}
+            className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="Full Name"
+            name="Name"
+          />
+        </div>
+
+        {/* address 01 02 */}
+        <div className=" flex">
+          <div className=" w-full px-3 mb-3">
+            <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
+              Address 01
+            </label>
+            <input
+              onChange={updateForm}
+              className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              name="Address1"
+              placeholder="Address Line 01"
+            />
+          </div>
+          <div className=" w-full px-3 mb-3">
+            <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
+              Address 02
+            </label>
+            <input
+              onChange={updateForm}
+              className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              name="Address2"
+              placeholder="Address Line 02"
+            />
+          </div>
+        </div>
+
+        {/* city state and zip */}
+        <div className=" flex">
+          <div className=" w-full px-3 mb-3">
+            <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
+              City
+            </label>
+            <input
+              onChange={updateForm}
+              className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              name="City"
+              placeholder="City"
+            />
+          </div>
+          <div className=" w-full px-3 mb-3">
+            <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
+              State
+            </label>
+            <input
+              onChange={updateForm}
+              className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              name="State"
+              placeholder="State"
+            />
+          </div>
+          <div className=" w-full px-3 mb-3">
+            <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
+              Zip Code
+            </label>
+            <input
+              onChange={updateForm}
+              className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="text"
+              name="Zipcode"
+              placeholder="Zip Code"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default App;

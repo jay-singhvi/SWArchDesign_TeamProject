@@ -1,0 +1,94 @@
+[
+  {
+    "key": "AC",
+    "name": "Acapulco"
+  },
+  {
+    "key": "AG",
+    "name": "Aguascalientes"
+  },
+  {
+    "key": "CP",
+    "name": "Chilpancingo"
+  },
+  {
+    "key": "CDM",
+    "name": "CIUDAD DE MEXICO"
+  },
+  {
+    "key": "CL",
+    "name": "Culiacán"
+  },
+  {
+    "key": "GD",
+    "name": "Guadalajara"
+  },
+  {
+    "key": "GL",
+    "name": "Guadalupe"
+  },
+  {
+    "key": "IR",
+    "name": "Irapuato"
+  },
+  {
+    "key": "IZ",
+    "name": "Iztapalapa"
+  },
+  {
+    "key": "MZ",
+    "name": "Mazatlán"
+  },
+  {
+    "key": "MT",
+    "name": "Monterrey"
+  },
+  {
+    "key": "MR",
+    "name": "Morelia"
+  },
+  {
+    "key": "PC",
+    "name": "Pachuca"
+  },
+  {
+    "key": "PU",
+    "name": "Puebla"
+  },
+  {
+    "key": "QR",
+    "name": "Querétaro"
+  },
+  {
+    "key": "ST",
+    "name": "Saltillo"
+  },
+  {
+    "key": "SLP",
+    "name": "San Luis Potosí"
+  },
+  {
+    "key": "SDQ",
+    "name": "SANTIAGO DE QUERETARO"
+  },
+  {
+    "key": "TJ",
+    "name": "Tijuana"
+  },
+  {
+    "key": "TR",
+    "name": "TORREÓN"
+  },
+  {
+    "key": "TG",
+    "name": "Tuxtla Gutiérrez"
+  },
+  {
+    "key": "VH",
+    "name": "Villahermosa"
+  },
+  {
+    "key": "ZM",
+    "name": "Zamora"
+  }
+]

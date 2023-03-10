@@ -13,7 +13,6 @@ import JapanForm from "./components/JapanForm";
 import CanadaForm from "./components/CanadaForm";
 import IndiaForm from "./components/IndiaForm";
 import DefaultForm from "./components/DefaultForm";
-import MexicoForm from "./components/MexicoForm";
 
 function App() {
   // variables to handle the Request and Response
@@ -74,8 +73,8 @@ function App() {
         return <IndiaForm setFormData={setFormData} />;
       else if (countryList.includes("Japan"))
         return <JapanForm setFormData={setFormData} />;
-        else if (countryList.includes("Mexico"))
-        return <MexicoForm setFormData={setFormData} />;
+        else if (countryList.includes("Japan"))
+        return <JapanForm setFormData={setFormData} />;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
       else return <DefaultForm setFormData={setFormData} />;
@@ -367,7 +366,6 @@ function App() {
   <JapanForm />
   <CanadaForm />
   <IndiaForm />
-  <MexicoForm/>
   <DefaultForm />
 </>;
 

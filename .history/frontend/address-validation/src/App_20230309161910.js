@@ -9,11 +9,9 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import USAForm from "./components/UsaForm";
-import JapanForm from "./components/JapanForm";
 import CanadaForm from "./components/CanadaForm";
 import IndiaForm from "./components/IndiaForm";
 import DefaultForm from "./components/DefaultForm";
-import MexicoForm from "./components/MexicoForm";
 
 function App() {
   // variables to handle the Request and Response
@@ -60,7 +58,6 @@ function App() {
     { name: "United States of America" },
     { name: "Japan" },
     { name: "India" },
-    { name: "Mexico" },
     { name: "Canada" },
   ];
 
@@ -72,10 +69,8 @@ function App() {
         return <USAForm setFormData={setFormData} />;
       else if (countryList.includes("India"))
         return <IndiaForm setFormData={setFormData} />;
-      else if (countryList.includes("Japan"))
-        return <JapanForm setFormData={setFormData} />;
-        else if (countryList.includes("Mexico"))
-        return <MexicoForm setFormData={setFormData} />;
+      else if (countryList.includes("India"))
+        return <IndiaForm setFormData={setFormData} />;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
       else return <DefaultForm setFormData={setFormData} />;
@@ -209,7 +204,7 @@ function App() {
         </p>
 
         {/* select countries */}
-        <div className=" mt-5">
+        <div className=" mt-3">
           <select
             className=" p-5 outline-none focus:outline-none"
             multiple
@@ -218,7 +213,7 @@ function App() {
           >
             {countries.map((country) => (
               <option
-                className=" cursor-pointer uppercase tracking-widest p-2 hover:bg-gray-300 m-3"
+                className=" cursor-pointer uppercase tracking-widest p-2 hover:bg-gray-300"
                 key={country.name}
                 value={country.name}
               >
@@ -364,10 +359,8 @@ function App() {
 
 <>
   <USAForm />
-  <JapanForm />
   <CanadaForm />
   <IndiaForm />
-  <MexicoForm/>
   <DefaultForm />
 </>;
 

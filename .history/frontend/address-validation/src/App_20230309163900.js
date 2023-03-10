@@ -75,7 +75,7 @@ function App() {
       else if (countryList.includes("Japan"))
         return <JapanForm setFormData={setFormData} />;
         else if (countryList.includes("Mexico"))
-        return <MexicoForm setFormData={setFormData} />;
+        return <JapanForm setFormData={setFormData} />;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
       else return <DefaultForm setFormData={setFormData} />;
