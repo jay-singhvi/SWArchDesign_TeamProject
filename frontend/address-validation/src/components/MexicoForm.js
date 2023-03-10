@@ -57,6 +57,7 @@ function MexicoForm({ setFormData }) {
                     placeholder="Street Address"
                   />
                 </div>
+                {/*
                 <div className=" w-full px-3 mb-3">
                   <label className=" block uppercase tracking-wide text-black text-xs font-bold mb-2">
                     Address 02
@@ -69,8 +70,9 @@ function MexicoForm({ setFormData }) {
                     placeholder="Address Line 02"
                   />
                 </div>
+                      */}
               </div>
-  
+          
               {/* city  and zip */}
               <div className=" flex">
                 <div className=" w-full px-3 mb-3">

@@ -278,11 +278,13 @@ function App() {
                         Address 01
                       </StyledTableCell>
                     )}
+                    {countryList.includes("Mexico") ?null: (
                     <StyledTableCell
                       sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                     >
                       Address 02
                     </StyledTableCell>
+                    )}
                     <StyledTableCell
                       sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                     >
@@ -338,11 +340,15 @@ function App() {
                       <StyledTableCell sx={{ textAlign: "left" }}>
                         {address.Address1}
                       </StyledTableCell>
+                       {countryList.includes("Mexico") ?null: (
                       <StyledTableCell sx={{ textAlign: "left" }}>
                         {address.Address2}
                       </StyledTableCell>
+                      )}
                       <StyledTableCell>{address.City}</StyledTableCell>
+                      {countryList.includes("Japan") ?null: (
                       <StyledTableCell>{address.State}</StyledTableCell>
+                      )}
                       <StyledTableCell>{address.ZipCode}</StyledTableCell>
                       <StyledTableCell sx={{ textAlign: "center" }}>
                         {address.Country}
