@@ -288,22 +288,20 @@ function App() {
                     >
                       City
                     </StyledTableCell>
-
-                    {countryList.includes("Canada") ? (
+                    {countryList.includes("Canada")? (
                       <StyledTableCell
                         sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                       >
                         Province
                       </StyledTableCell>
-                    ) : countryList.includes("Japan") ? null : (
+                    ) : (
                       <StyledTableCell
                         sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                       >
                         State
                       </StyledTableCell>
                     )}
-
-                    {countryList.includes("India") ? (
+                      {countryList.includes("India") ? (
                       <StyledTableCell
                         sx={{ fontWeight: "fontWeightBold", textAlign: "left" }}
                       >
