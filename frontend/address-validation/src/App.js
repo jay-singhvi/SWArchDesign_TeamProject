@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableFooter from "@mui/material/TableFooter";
@@ -69,20 +69,20 @@ function App() {
     if (countryList.length === 1) {
       console.log(countryList);
       if (countryList.includes("United States of America"))
-        return <USAForm setFormData={setFormData} />;
+        return <USAForm setFormData={setFormData} formRefs={formRefs}/>;
       else if (countryList.includes("India"))
-        return <IndiaForm setFormData={setFormData} />;
+        return <IndiaForm setFormData={setFormData} formRefs={formRefs}/>;
       else if (countryList.includes("Japan"))
-        return <JapanForm setFormData={setFormData} />;
+        return <JapanForm setFormData={setFormData} formRefs={formRefs}/>;
       else if (countryList.includes("Mexico"))
-        return <MexicoForm setFormData={setFormData} />;
+        return <MexicoForm setFormData={setFormData} formRefs={formRefs}/>;
       else if (countryList.includes("Canada"))
         return <CanadaForm setFormData={setFormData} />;
-      else return <DefaultForm setFormData={setFormData} />;
+      else return <DefaultForm setFormData={setFormData} formRefs={formRefs}/>;
     }
     // Renders form for multiple selected countries
     else {
-      return <DefaultForm setFormData={setFormData} />;
+      return <DefaultForm setFormData={setFormData} formRefs={formRefs}/>;
     }
   }
 
@@ -91,6 +91,28 @@ function App() {
     const selectedOptions = Array.from(event.target.selectedOptions);
     const selectedValues = selectedOptions.map((option) => option.value);
     setCountryList(selectedValues);
+  }
+
+  const formRefs = {
+    nameRef: useRef(),
+    address1Ref: useRef(),
+    address2Ref: useRef(),
+    cityRef: useRef(),
+    stateRef: useRef(),
+    zipcodeRef: useRef(),
+    // add more refs as needed
+  };
+
+  // Keep country selected by reset the fields for new search
+  function Reset()
+  {
+    setFormData({});
+    setCountryList(countryList);
+    Object.values(formRefs).forEach((ref) => {
+      if (ref && ref.current) {
+        ref.current.value = '';
+      }
+    });
   }
 
   // Finds address based on the form data
@@ -194,7 +216,7 @@ function App() {
         setResponseData({ error: "An error occurred" });
       }
     }
-    setFormData({});
+    Reset();
   }
 
   // Give all the options of countries to user for selection

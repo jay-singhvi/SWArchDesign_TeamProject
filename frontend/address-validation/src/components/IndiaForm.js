@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import IND from "../assets/images/india.png";
 import indiaStates from "../assets/data/indianStates.json";
 
-function IndiaForm({ setFormData }) {
+function IndiaForm({ setFormData, formRefs }) {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
       setFormValues({
@@ -40,6 +40,7 @@ function IndiaForm({ setFormData }) {
                   type="text"
                   name="Name"
                   placeholder="Full Name"
+                  ref={formRefs.nameRef}
                 />
               </div>
               {/* address 01 02 */}
@@ -54,6 +55,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     ame="Address1"
                     placeholder="Street Address"
+                    ref={formRefs.address1Ref}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -66,6 +68,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="Address2"
                     placeholder="Address Line 02"
+                    ref={formRefs.address2Ref}
                   />
                 </div>
               </div>
@@ -82,6 +85,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="City"
                     placeholder="City"
+                    ref={formRefs.cityRef}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -119,7 +123,7 @@ function IndiaForm({ setFormData }) {
                     className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     type="text"
                     name="ZipCode"
-                    placeholder="Pin Code"
+                    placeholder="Pin Code"     
                   />
                 </div>
               </div>

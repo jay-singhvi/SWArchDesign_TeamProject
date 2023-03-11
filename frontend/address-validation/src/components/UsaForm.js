@@ -3,7 +3,7 @@ import USA from "../assets/images/usa.png";
 import usaStates from "../assets/data/usaStates.json";
 
 
-function USAForm({ setFormData }) {
+function USAForm({ setFormData, formRefs }) {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
       setFormValues({
@@ -41,6 +41,7 @@ function USAForm({ setFormData }) {
                   type="text"
                   placeholder="Full Name"
                   name="Name"
+                  ref={formRefs.nameRef}
                 />
               </div>
   
@@ -56,6 +57,7 @@ function USAForm({ setFormData }) {
                     type="text"
                     name="Address1"
                     placeholder="Address Line 01"
+                    ref={formRefs.address1Ref}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -68,6 +70,7 @@ function USAForm({ setFormData }) {
                     type="text"
                     name="Address2"
                     placeholder="Address Line 02"
+                    ref={formRefs.address2Ref}
                   />
                 </div>
               </div>
@@ -84,6 +87,7 @@ function USAForm({ setFormData }) {
                     type="text"
                     name="City"
                     placeholder="City"
+                    ref={formRefs.cityRef}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -122,6 +126,7 @@ function USAForm({ setFormData }) {
                     type="text"
                     name="ZipCode"
                     placeholder="Zip Code"
+                    ref={formRefs.zipcodeRefs}
                   />
                 </div>
               </div>
