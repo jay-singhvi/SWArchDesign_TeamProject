@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JPN from "../assets/images/japan.png";
 
-function IndiaForm({ setFormData }) {
+function IndiaForm({ setFormData, formRefs }) {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
       setFormValues({
@@ -39,6 +39,7 @@ function IndiaForm({ setFormData }) {
                   type="text"
                   name="Name"
                   placeholder="Full Name"
+                  ref={formRefs.nameRef}
                 />
               </div>
               {/* address 01 02 */}
@@ -54,6 +55,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="Address1"
                     placeholder="Street Address"
+                    ref={formRefs.address1Ref}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -66,6 +68,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="Address2"
                     placeholder="Address Line 02"
+                    ref={formRefs.address2Ref}
                   />
                 </div>
               </div>
@@ -82,6 +85,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="City"
                     placeholder="City"
+                    ref={formRefs.cityRef}
                   />
                 </div>
            
@@ -95,6 +99,7 @@ function IndiaForm({ setFormData }) {
                     type="text"
                     name="ZipCode"
                     placeholder="Pin Code"
+                    ref={formRefs.zipcodeRef}
                   />
                 </div>
               </div>

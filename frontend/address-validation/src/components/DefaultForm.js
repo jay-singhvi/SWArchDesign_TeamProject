@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function DefaultForm({setFormData}) {
+function DefaultForm({ setFormData, formRefs }) {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
       setFormValues({
@@ -33,6 +33,7 @@ function DefaultForm({setFormData}) {
               type="text"
               placeholder="Full Name"
               name="Name"
+              ref={formRefs.nameRef}
             />
           </div>
   
@@ -48,6 +49,7 @@ function DefaultForm({setFormData}) {
                 type="text"
                 name="Address1"
                 placeholder="Address Line 01"
+                ref={formRefs.address1Ref}
               />
             </div>
             <div className=" w-full px-3 mb-3">
@@ -60,6 +62,7 @@ function DefaultForm({setFormData}) {
                 type="text"
                 name="Address2"
                 placeholder="Address Line 02"
+                ref={formRefs.address2Ref}
               />
             </div>
           </div>
@@ -76,6 +79,7 @@ function DefaultForm({setFormData}) {
                 type="text"
                 name="City"
                 placeholder="City"
+                ref={formRefs.cityRef}
               />
             </div>
             <div className=" w-full px-3 mb-3">
@@ -88,6 +92,7 @@ function DefaultForm({setFormData}) {
                 type="text"
                 name="State"
                 placeholder="State"
+                ref={formRefs.stateRef}
               />
             </div>
             <div className=" w-full px-3 mb-3">
@@ -100,6 +105,7 @@ function DefaultForm({setFormData}) {
                 type="text"
                 name="ZipCode"
                 placeholder="Zip Code"
+                ref={formRefs.zipcodeRef}
               />
             </div>
           </div>

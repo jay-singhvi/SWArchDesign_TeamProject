@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MXC from "../assets/images/mexico.png";
 import mexicostates from '../assets/data/mexicoStates.json'
 
-function MexicoForm({ setFormData }) {
+function MexicoForm({ setFormData, formRefs }) {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
       setFormValues({
@@ -40,6 +40,7 @@ function MexicoForm({ setFormData }) {
                   type="text"
                   name="Name"
                   placeholder="Full Name"
+                  ref={formRefs.nameRef}
                 />
               </div>
               {/* address 01 02 */}
@@ -55,6 +56,7 @@ function MexicoForm({ setFormData }) {
                     type="text"
                     ame="Address1"
                     placeholder="Street Address"
+                    ref={formRefs.address1Ref}
                   />
                 </div>
                 {/*
@@ -85,6 +87,7 @@ function MexicoForm({ setFormData }) {
                     type="text"
                     name="City"
                     placeholder="City"
+                    ref={formRefs.cityRef}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -124,6 +127,7 @@ function MexicoForm({ setFormData }) {
                     type="text"
                     name="ZipCode"
                     placeholder="Zip Code"
+                    ref={formRefs.zipcodeRef}
                   />
                 </div>
               </div>

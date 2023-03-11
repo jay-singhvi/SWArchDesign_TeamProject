@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CND from "../assets/images/canada.png";
 import canadaStates from "../assets/data/canadaStates.json";
 
-function CanadaForm({setFormData}) {
+function CanadaForm({ setFormData, formRefs }) {
   {
     const [formValues, setFormValues] = useState({});
     function updateForm(event) {
@@ -40,6 +40,7 @@ function CanadaForm({setFormData}) {
                   type="text"
                   name="Name"
                   placeholder="Name"
+                  ref={formRefs.nameRef}
                 />
               </div>
 
@@ -55,6 +56,7 @@ function CanadaForm({setFormData}) {
                     type="text"
                     name="Address1"
                     placeholder="Address Line 01"
+                    ref={formRefs.address1Ref}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -67,6 +69,7 @@ function CanadaForm({setFormData}) {
                     type="text"
                     name="Address2"
                     placeholder="Address Line 02"
+                    ref={formRefs.address2Ref}
                   />
                 </div>
               </div>
@@ -83,6 +86,7 @@ function CanadaForm({setFormData}) {
                     type="text"
                     name="City"
                     placeholder="City"
+                    ref={formRefs.cityRef}
                   />
                 </div>
                 <div className=" w-full px-3 mb-3">
@@ -121,6 +125,7 @@ function CanadaForm({setFormData}) {
                     type="text"
                     name="ZipCode"
                     placeholder="Postal Code"
+                    ref={formRefs.zipcodeRef}
                   />
                 </div>
               </div>
