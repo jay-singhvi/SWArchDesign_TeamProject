@@ -2,17 +2,13 @@ from flask import Flask, request, Response,jsonify,render_template
 from pymongo import MongoClient
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
-
+from model import AddressModel
 
 import json
 app = Flask(__name__)
 CORS(app)
 
-CONNECTION_STRING = "mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.net/?retryWrites=true&w=majority"
-myclient = MongoClient(CONNECTION_STRING)
-mydb = myclient["CPSC5200TeamProject"]
-col = mydb["Address"]
-
+addr = AddressModel()
 
 ### swagger specific ###
 SWAGGER_URL = '/swagger'
@@ -27,82 +23,36 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 ### end swagger specific ###
 
-
 # construct a Flask Response object
 def get_response(code, content):
     return Response(json.dumps(content), status=code, mimetype="application/json")
 
-
-# format the address object for sending as JSON
-def json_format(address):
-    address['_id'] = str(address['_id'])
-    return address
-
+#Generate a dictionary of queries based on JSON request
 def do_search_country(data):
-    myquery = {}
+    query = {}
     for (k, v) in data.items():
         if (v != ''):
             if (k == "Address1" or k == "Address2"):
-                myquery[k] = {"$regex": ".*" + v + ".*"}
+                query[k] = {"$regex": ".*" + v + ".*"}
             else:
-                myquery[k] = v
-    doc = col.find(myquery)
-    t_list = []
-    for item in doc:
-        t_list.append(json_format(item))
-    return t_list
+                query[k] = v
+    return addr.get_addresses(query)
 
+#Generate a dictionary of queries based on JSON request
 def do_search_countries(data):
-    myquery = {}
+    query = {}
     for (k, v) in data.items():
         if (v != ''):
             if (k == "Country"):
-                myquery[k] = {"$in": v}
+                query[k] = {"$in": v}
             elif (k == "Address1" or k == "Address2"):
-                myquery[k] = {"$regex": ".*" + v + ".*"}
+                query[k] = {"$regex": ".*" + v + ".*"}
             else:
-                myquery[k] = v
-    doc = col.find(myquery)
-    t_list = []
+                query[k] = v
+    return addr.get_addresses(query)
 
-    for item in doc:
-        t_list.append(json_format(item))
-    return t_list
-
-@app.route("/spec")
-def spec():
-    swag = swagger(app)
-    swag['info']['version'] = "1.0"
-    swag['info']['title'] = "My API"
-    return jsonify(swag)
-    return jsonify(swagger(app))
-@app.route("/")
-def index():
-    # Provide the mongodb atlas url to connect python to mongodb using pymongo
-    return render_template('index.html')
-
-    # Create the database for our example (we will use the same database throughout the tutorial
-    #return client['user_shopping_list']
-
-
-@app.route('/api/searchCountry', methods=['POST'])
-def searchCountry():
-    data = request.get_json()
-    result= do_search_country(data)
-    return get_response(200,result)
-
-
-@app.route('/api/searchCountries', methods=['POST'])
-def search_countries():
-    data = request.get_json()
-    result = do_search_countries(data)
-    return get_response(200, result)
-
-@app.route('/api/searchCountriesByClient', methods=['POST'])
-def search_countries_by_client_name():
-    # Get the JSON message body from the request
-    data = request.get_json()
-    #Generate a dictionary of queries based on JSON request
+#Generate a dictionary of queries based on JSON request
+def do_search_countries_by_client(data):
     query={}
     #Iterate over the JSON object
     for (key, val) in data.items():
@@ -118,16 +68,44 @@ def search_countries_by_client_name():
                 query[key] = {"$regex": ".*" + val + ".*"}
             else:
                 query[key] = val
+    return addr.get_addresses(query)
 
-    #Querying the database which returns documents based on the filters
-    print(query)
-    doc = col.find(query)
+@app.route("/spec")
+def spec():
+    swag = swagger(app)
+    swag['info']['version'] = "1.0"
+    swag['info']['title'] = "My API"
+    return jsonify(swag)
 
-    #Iterates over the response from find method and appends to the list for response to client
-    listOfAddresses = []
-    for item in doc:
-        listOfAddresses.append(json_format(item))
-    return get_response(200, listOfAddresses)
+@app.route("/")
+def index():
+    # Provide the mongodb atlas url to connect python to mongodb using pymongo
+    return render_template('index.html')
+
+    # Create the database for our example (we will use the same database throughout the tutorial
+    #return client['user_shopping_list']
+
+#REST API to get the addresses based on country
+@app.route('/api/searchCountry', methods=['POST'])
+def searchCountry():
+    data = request.get_json()
+    result= do_search_country(data)
+    return get_response(200,result)
+
+#REST API to get the addresses based on list of countries
+@app.route('/api/searchCountries', methods=['POST'])
+def search_countries():
+    data = request.get_json()
+    result = do_search_countries(data)
+    return get_response(200, result)
+
+#REST API to get the addresses based on countries and client name
+@app.route('/api/searchCountriesByClient', methods=['POST'])
+def search_countries_by_client_name():
+    # Get the JSON message body from the request
+    data = request.get_json()
+    result = do_search_countries_by_client(data)
+    return get_response(200, result)
 
 if __name__ == "__main__":
     app.run()
